@@ -213,8 +213,9 @@ func (c *Cli) get(uri string) (resp *http.Response, err error) {
 func (c *Cli) makeRequest(req *http.Request) (resp *http.Response, err error) {
 	req.Header.Set("Accept", "application/json")
 	req.Header.Set("Content-Type", "application/json")
+	req.Header.Set("X-Force-BasicDelegation", "true")
 
-	if source, ok := c.opts["password-source"]; ok && !strings.HasSuffix(req.URL.Path, "/rest/auth/1/session") {
+	if source, ok := c.opts["password-source"]; ok {
 		user, _ := c.opts["user"].(string)
 		password := c.GetPass(user)
 		if password == "" {

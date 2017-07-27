@@ -22,6 +22,8 @@ func (c *Cli) CmdLogin() error {
 		user, _ := c.opts["user"].(string)
 
 		passwd := c.GetPass(user)
+		// Prevent this going into a loop in c.makeRequest()
+		c.SetPass(user, passwd)
 		req.SetBasicAuth(user, passwd)
 
 		resp, err := c.makeRequest(req)

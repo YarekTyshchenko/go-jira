@@ -16,7 +16,7 @@ func (c *Cli) GetPass(user string) string {
 			var err error
 			passwd, err = keyringGet(user)
 			if err != nil {
-				panic(err)
+				log.Infof("Unable to get password for '%s' from keyring", user)
 			}
 		} else if source == "pass" {
 			if bin, err := exec.LookPath("pass"); err == nil {
